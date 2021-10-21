@@ -385,6 +385,8 @@ func NewServer(config *Config, flat Deps) (*Server, error) {
 		return nil, err
 	}
 
+	initLeaderMetrics()
+
 	s.rpcLimiter.Store(rate.NewLimiter(config.RPCRateLimit, config.RPCMaxBurst))
 
 	configReplicatorConfig := ReplicatorConfig{

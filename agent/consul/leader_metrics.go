@@ -187,3 +187,12 @@ func AgentTLSCertExpirationMonitor(c *tlsutil.Configurator, logger hclog.Logger,
 		},
 	}
 }
+
+// initLeaderMetrics sets all metrics that are emitted only on leaders to a NaN
+// value so that they don't incorrectly report 0 when a server starts as a
+// follower.
+func initLeaderMetrics() {
+	for _, g := range LeaderCertExpirationGauges {
+		metrics.SetGaugeWithLabels(g.Name, float32(math.NaN()), g.ConstLabels)
+	}
+}
