@@ -45,6 +45,9 @@ resource "aws_security_group" "test-servers" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+  tags = {
+    yor_trace = "de58e37b-027c-46a5-af48-578b29260db8"
+  }
 }
 
 resource "aws_instance" "test-server" {
@@ -66,5 +69,8 @@ resource "aws_instance" "test-server" {
       private_key = module.keys.private_key_pem
       host        = aws_instance.test-server.public_ip
     }
+  }
+  tags = {
+    yor_trace = "2943aeb9-d304-4307-b2e2-4930d8470b25"
   }
 }
